@@ -12,6 +12,9 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Enable CORS for all routes
+app.use(cors());
+
 // Cache configuration
 const CACHE_DURATION = 1000; // 1 second cache for more frequent updates
 let dataCache = {
@@ -19,30 +22,6 @@ let dataCache = {
     bankNifty: { data: null, timestamp: 0 },
     cookies: { value: null, timestamp: 0 }
 };
-
-// Configure CORS with environment variables
-const allowedOrigins = [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'https://stock-data-eight.vercel.app'
-];
-
-app.use(cors({
-    origin: function (origin, callback) {
-        // allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-    maxAge: 86400 // CORS preflight cache for 24 hours
-}));
 
 // NSE API endpoints
 const NSE_BASE_URL = 'https://www.nseindia.com/api';

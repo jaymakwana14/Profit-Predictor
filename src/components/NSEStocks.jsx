@@ -29,8 +29,16 @@ const NSEStocks = () => {
   useEffect(() => {
     const fetchNSEData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/nse-data`);
-        setNseData(response.data);
+        const [niftyResponse, indicesResponse] = await Promise.all([
+          axios.get(`${import.meta.env.VITE_API_URL}/api/nifty`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/indices`)
+        ]);
+        
+        setNseData({
+          ...nseData,
+          nifty50: niftyResponse.data,
+          stocks: indicesResponse.data
+        });
         setLoading(false);
       } catch (error) {
         console.error('Error fetching NSE data:', error);
