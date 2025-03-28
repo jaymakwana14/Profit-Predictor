@@ -60,7 +60,7 @@ const PredictionSection = () => {
     
     try {
       console.log('Fetching data for symbol:', symbol);
-      const stockResponse = await fetch(`http://localhost:5000/api/stock/${symbol}`);
+      const stockResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/stock/${symbol}`);
       const stockData = await stockResponse.json();
       
       console.log('Raw API Response:', stockData);
