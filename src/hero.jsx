@@ -61,7 +61,7 @@ export default function Hero() {
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur"></div>
             <img
-              src="/src/assets/Stocks.jpg"
+              src={import.meta.env.BASE_URL + 'assets/Stocks.jpg'}
               alt="Market Visualization"
               className="relative z-10 w-full h-auto rounded-2xl shadow-2xl"
             />
